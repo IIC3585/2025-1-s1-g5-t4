@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Demo Suscripción (LitElement)</title>
+  <!-- IMPORTANTE NO BORRAR
+    Importamos LitElement desde CDN (Unpkg) como módulo ES.
+    Con un bundler, podría importarse desde 'lit' en node_modules.
+  -->
+  <script type="module">
+    import './suscripcion-lit.js';
+  </script>
+  <style>
+    button {
+      background-color: red !important;
+    }
+  </style>
+
+</head>
+<body>
+  <h1>Prueba de componente &lt;suscripcion-card-lit&gt;</h1>
+
+  <suscripcion-card-lit
+    plan="Básico"
+    precio="5 USD/mes"
+    descripcion="Acceso a contenidos básicos"
+  ></suscripcion-card-lit>
+
+  <suscripcion-card-lit
+    plan="Premium"
+    precio="15 USD/mes"
+    descripcion="Acceso a todo el contenido + soporte 24/7"
+  ></suscripcion-card-lit>
+
+  <script>
+    document.querySelectorAll('suscripcion-card-lit').forEach(el => {
+      el.addEventListener('suscribirse', e => {
+        console.log(
+          '[Lit] Plan:', e.detail.plan,
+          'Precio:', e.detail.precio
+        );
+      });
+    });
+  </script>
+</body>
+</html>
