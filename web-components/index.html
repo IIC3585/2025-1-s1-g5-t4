@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Demo Suscripción</title>
+  <script src="suscripcion.js" type="module"></script>
+  <style>
+    button {
+      background-color: #e91e63;
+    }
+  </style>
+
+</head>
+<body>
+  <h1>Prueba de componente &lt;suscripcion-card&gt;</h1>
+
+  <suscripcion-card
+    plan="Básico"
+    precio="5 USD/mes"
+    descripción="Acceso a contenidos básicos"
+  ></suscripcion-card>
+
+  <suscripcion-card
+    plan="Premium"
+    precio="15 USD/mes"
+    descripción="Acceso a todo el contenido + soporte 24/7"
+  ></suscripcion-card>
+
+  <script>
+    document.querySelectorAll('suscripcion-card').forEach(el => {
+      el.addEventListener('suscribirse', e => {
+        console.log('Plan:', e.detail.plan, 'Precio:', e.detail.precio);
+      });
+    });
+  </script>
+</body>
+</html>
