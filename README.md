@@ -1,33 +1,50 @@
 # 2025-1-s1-g5-t4
 
-## Componentes de Suscripción
+## Componentes de Suscripción y Acordeón
 
-Este repositorio muestra dos formatos (Web Components & Lit Elements) de construcción para una misma implementación.
+Este repositorio muestra dos formatos (Web Components & Lit Elements) de construcción para una misma implementación de tarjeta de suscripción, y además incluye un componente de acordeón reutilizable.
 
 1. **Web Components estándar** (HTML Template + Shadow DOM + Custom Element)  
 2. **LitElement + lit-html** (propiedades reactivas, `static styles`, `render`)
+3. **Acordeón Web Component** (para mostrar/ocultar secciones de contenido)
 
 El objetivo es comprender desde cero cómo:
 - Aislar estilos y estructura en un Shadow DOM.  
-- Exponer una API sencilla de atributos (`plan`, `precio`, `descripcion`).  
-- Disparar eventos personalizados (`suscribirse`) que la página principal pueda capturar.  
+- Exponer una API sencilla de atributos (`plan`, `precio`, `descripcion`, `header`).  
+- Disparar eventos personalizados (`suscribirse`, `toggle`) que la página principal pueda capturar.  
 - En la versión LitElement, aprovechar reactividad automática y sintaxis declarativa.
 
-## Para probar, por ahora:
+---
+
+## Para probar
 
 Usar live server (importante que renderice con http para el uso de módulos, por eso el server).
 
 Elegir cualquiera de las dos carpetas e inspeccionar la página en la sección de consola para ver que los botones funcionan.
 
+---
+
 ## Web Components
 
 ### Uso en index.html
 
-* Importa suscripcion.js como módulo ES (type="module").
+* Importa `suscripcion.js` y `acordion.js` como módulos ES (type="module").
 
-* Cada <suscripcion-card> recibe atributos: plan (texto), precio (texto) y descripcion (texto)
+* Cada `<suscripcion-card>` recibe atributos: plan (texto), precio (texto) y descripcion (texto).
 
-* El evento suscribirse se captura con addEventListener.
+* El evento `suscribirse` se captura con addEventListener.
+
+* El acordeón se usa así:
+
+```html
+<acordion-list>
+  <acordion-item header="Sección 1">Contenido 1</acordion-item>
+  <acordion-item header="Sección 2">Contenido 2</acordion-item>
+</acordion-list>
+```
+
+* Solo una sección del acordeón puede estar abierta a la vez.  
+* El atributo `header` define el título visible de cada sección.
 
 ### Implementación en suscripcion.js
 
@@ -63,6 +80,31 @@ Elegir cualquiera de las dos carpetas e inspeccionar la página en la sección d
 
     * Para que el navegador acepte módulos ES (type="module"), es obligatorio servir con HTTP (no file://).
 
+---
+
+## Componente Acordeón
+
+### Uso en index.html
+
+* Importa `acordion.js` como módulo ES (type="module").
+
+* Estructura básica:
+
+```html
+<acordion-list>
+  <acordion-item header="Título 1">Contenido 1</acordion-item>
+  <acordion-item header="Título 2">Contenido 2</acordion-item>
+</acordion-list>
+```
+
+* Cada `<acordion-item>` recibe el atributo `header` para el título de la sección.
+
+* Al hacer clic en el encabezado, se despliega el contenido y se cierra cualquier otro abierto.
+
+* Puedes escuchar el evento `toggle` si necesitas reaccionar a la apertura/cierre desde el DOM principal.
+
+---
+
 ## Lit Elements
 
 ### Uso en index.html
@@ -73,7 +115,7 @@ Elegir cualquiera de las dos carpetas e inspeccionar la página en la sección d
 
 * Se escucha el evento suscribirse igual que en la versión “pura”.
 
-### Implementación en suscripcion.js
+### Implementación en suscripcion-lit.js
 
 * Propiedades reactivas + reflejo automático
 
@@ -98,7 +140,6 @@ static get properties() {
 * Sintaxis declarativa con lit-html. En render() se usa un return donde ${this.plan} se actualiza de manera reactiva.
 
 ```js
-
 return html`
   <div class="card">
     <div class="titulo">${this.plan}</div>
