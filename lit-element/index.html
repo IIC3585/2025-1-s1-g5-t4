@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Demo Suscripción (LitElement)</title>
   <!-- IMPORTANTE NO BORRAR
     Importamos LitElement desde CDN (Unpkg) como módulo ES.
@@ -12,49 +13,259 @@
   </script>
   <script type="module" src="acordion-lit.js"></script>
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: #2d3748;
+      line-height: 1.6;
+    }
+
+    .main-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    h1 {
+      text-align: center;
+      color: white;
+      font-size: 3rem;
+      font-weight: 700;
+      margin: 40px 0 20px 0;
+      text-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      background: linear-gradient(45deg, #fff, #e2e8f0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: rgba(255,255,255,0.9);
+      font-size: 1.2rem;
+      margin-bottom: 60px;
+      font-weight: 300;
+    }
+
+    h2 {
+      text-align: center;
+      color: white;
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin: 80px 0 40px 0;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    
+    .subscription-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      margin: 40px 0;
+      padding: 20px;
+    }
+
+    .accordion-container {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 40px;
+      margin: 40px 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    
     button {
-      background-color: red !important;
+      background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%) !important;
+      border: none !important;
+      border-radius: 12px !important;
+      padding: 12px 24px !important;
+      color: white !important;
+      font-weight: 600 !important;
+      font-size: 1rem !important;
+      cursor: pointer !important;
+      transition: all 0.3s ease !important;
+      box-shadow: 0 4px 15px rgba(229, 62, 62, 0.3) !important;
+    }
+
+    button:hover {
+      transform: translateY(-2px) !important;
+      box-shadow: 0 6px 20px rgba(229, 62, 62, 0.4) !important;
+    }
+
+    button:active {
+      transform: translateY(0) !important;
+    }
+
+    /* Animaciones */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .subscription-container > * {
+      animation: fadeInUp 0.6s ease;
+      opacity: 1;
+    }
+
+    .subscription-container > *:nth-child(1) { animation-delay: 0.1s; }
+    .subscription-container > *:nth-child(2) { animation-delay: 0.2s; }
+    .subscription-container > *:nth-child(3) { animation-delay: 0.3s; }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+      
+      h2 {
+        font-size: 2rem;
+      }
+      
+      .main-container {
+        padding: 10px;
+      }
+      
+      .subscription-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 10px;
+      }
+      
+      .accordion-container {
+        margin: 20px 10px;
+        padding: 30px 20px;
+      }
+    }
+
+    /* Efectos adicionales */
+    .subscription-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.05)"/><circle cx="20" cy="80" r="0.5" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grain)"/></svg>');
+      pointer-events: none;
+      opacity: 0.3;
     }
   </style>
 
 </head>
 <body>
-  <h1>Prueba de componente &lt;suscripcion-card-lit&gt;</h1>
+  <div class="main-container">
+    <h1>Planes de Suscripción</h1>
+    <p class="subtitle">Elige el plan perfecto para tu negocio y comienza a crecer hoy mismo</p>
 
-  <suscripcion-card-lit
-    plan="Básico"
-    precio="5 USD/mes"
-    descripcion="Acceso a contenidos básicos"
-  ></suscripcion-card-lit>
+    <div class="subscription-container">
+      <subscription-card-lit
+        plan="Básico"
+        visits="10000"
+        price="9"
+        description="Perfecto para proyectos pequeños y sitios web personales"
+        features='["Análisis básico", "Soporte por email", "Dashboard personalizado", "Exportación de datos"]'
+      ></subscription-card-lit>
 
-  <suscripcion-card-lit
-    plan="Premium"
-    precio="15 USD/mes"
-    descripcion="Acceso a todo el contenido + soporte 24/7"
-  ></suscripcion-card-lit>
+      <subscription-card-lit
+        plan="Profesional"
+        visits="100000"
+        price="29"
+        tax-included
+        description="Ideal para empresas medianas y sitios web con tráfico alto"
+        features='["Todo lo del plan Básico", "Análisis avanzado", "Soporte prioritario", "API completa", "Integraciones", "Reportes personalizados"]'
+        highlighted
+      ></subscription-card-lit>
 
-  <script>
-    document.querySelectorAll('suscripcion-card-lit').forEach(el => {
-      el.addEventListener('suscribirse', e => {
-        console.log(
-          '[Lit] Plan:', e.detail.plan,
-          'Precio:', e.detail.precio
-        );
+      <subscription-card-lit
+        plan="Empresarial"
+        visits="0"
+        price="99"
+        tax-included
+        description="Solución completa para grandes empresas y aplicaciones críticas"
+        features='["Todo lo del plan Profesional", "Soporte 24/7", "Gerente de cuenta dedicado", "SLA garantizado", "Implementación personalizada", "Capacitación del equipo"]'
+      ></subscription-card-lit>
+    </div>
+
+    <script>
+      document.querySelectorAll('subscription-card-lit').forEach(el => {
+        el.addEventListener('subscribe', e => {
+          console.log(
+            '[Lit] Plan seleccionado:', e.detail.plan,
+            'Precio:', e.detail.price,
+            'Visitas:', e.detail.visits,
+            'IVA incluido:', e.detail.taxIncluded
+          );
+          
+          // Mostrar notificación más elegante
+          const notification = document.createElement('div');
+          notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(72, 187, 120, 0.3);
+            font-weight: 600;
+            z-index: 1000;
+            animation: slideInRight 0.3s ease;
+          `;
+          notification.textContent = `¡Gracias por elegir el plan ${e.detail.plan}!`;
+          document.body.appendChild(notification);
+          
+          setTimeout(() => {
+            notification.style.animation = 'slideOutRight 0.3s ease';
+            setTimeout(() => notification.remove(), 300);
+          }, 3000);
+        });
       });
-    });
-  </script>
-  <h2>Prueba de componente &lt;acordion-lit&gt;</h2>
-
-<acordion-lit>
-  <acordion-item-lit titulo="Primer ítem">
-    Contenido del primer ítem.
-  </acordion-item-lit>
-  <acordion-item-lit titulo="Segundo ítem">
-    Contenido del segundo ítem.
-  </acordion-item-lit>
-  <acordion-item-lit titulo="Tercer ítem">
-    Contenido del tercer ítem.
-  </acordion-item-lit>
-</acordion-lit>
+      
+      // Agregar estilos de animación para notificaciones
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes slideInRight {
+          from { transform: translateX(100%); opacity: 0; }
+          to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideOutRight {
+          from { transform: translateX(0); opacity: 1; }
+          to { transform: translateX(100%); opacity: 0; }
+        }
+      `;
+      document.head.appendChild(style);
+    </script>
+    
+    <h2>Componente Acordeón</h2>
+    
+    <div class="accordion-container">
+      <acordion-lit>
+        <acordion-item-lit titulo="¿Cómo funcionan nuestros planes?">
+          Nuestros planes están diseñados para adaptarse a diferentes necesidades. Cada plan incluye un conjunto específico de características y límites de uso. Puedes cambiar de plan en cualquier momento desde tu panel de control.
+        </acordion-item-lit>
+        <acordion-item-lit titulo="¿Puedo cancelar mi suscripción en cualquier momento?">
+          Sí, puedes cancelar tu suscripción en cualquier momento sin penalizaciones. Tu plan seguirá activo hasta el final del período de facturación actual y no se te cobrará en el siguiente ciclo.
+        </acordion-item-lit>
+        <acordion-item-lit titulo="¿Ofrecen soporte técnico?">
+          Todos nuestros planes incluyen soporte técnico. El plan Básico incluye soporte por email, el Profesional tiene soporte prioritario, y el Empresarial cuenta con soporte 24/7 y un gerente de cuenta dedicado.
+        </acordion-item-lit>
+      </acordion-lit>
+    </div>
+  </div>
 </body>
 </html>

@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Demo Suscripción y Acordeón</title>
 
   <!-- Importación de los componentes -->
@@ -10,42 +11,263 @@
 
   <!-- Estilo global de prueba -->
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: #2d3748;
+      line-height: 1.6;
+    }
+
+    .main-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    h1 {
+      text-align: center;
+      color: white;
+      font-size: 3rem;
+      font-weight: 700;
+      margin: 40px 0 20px 0;
+      text-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      background: linear-gradient(45deg, #fff, #e2e8f0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: rgba(255,255,255,0.9);
+      font-size: 1.2rem;
+      margin-bottom: 60px;
+      font-weight: 300;
+    }
+
+    h2 {
+      text-align: center;
+      color: white;
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin: 80px 0 40px 0;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    
+    .subscription-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      margin: 40px 0;
+      padding: 20px;
+    }
+
+    .accordion-container {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 40px;
+      margin: 40px 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .section-divider {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      margin: 60px 0;
+      border-radius: 1px;
+    }
+    
     button {
-      background-color: #e91e63;
+      background: linear-gradient(135deg, #e91e63 0%, #c2185b 100%) !important;
+      border: none !important;
+      border-radius: 12px !important;
+      padding: 12px 24px !important;
+      color: white !important;
+      font-weight: 600 !important;
+      font-size: 1rem !important;
+      cursor: pointer !important;
+      transition: all 0.3s ease !important;
+      box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3) !important;
+    }
+
+    button:hover {
+      transform: translateY(-2px) !important;
+      box-shadow: 0 6px 20px rgba(233, 30, 99, 0.4) !important;
+    }
+
+    button:active {
+      transform: translateY(0) !important;
+    }
+
+    /* Animaciones */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .subscription-container > * {
+      animation: fadeInUp 0.6s ease;
+      opacity: 1;
+    }
+
+    .subscription-container > *:nth-child(1) { animation-delay: 0.1s; }
+    .subscription-container > *:nth-child(2) { animation-delay: 0.2s; }
+    .subscription-container > *:nth-child(3) { animation-delay: 0.3s; }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+      
+      h2 {
+        font-size: 2rem;
+      }
+      
+      .main-container {
+        padding: 10px;
+      }
+      
+      .subscription-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 10px;
+      }
+      
+      .accordion-container {
+        margin: 20px 10px;
+        padding: 30px 20px;
+      }
+    }
+
+    /* Efectos adicionales */
+    .subscription-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.05)"/><circle cx="20" cy="80" r="0.5" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grain)"/></svg>');
+      pointer-events: none;
+      opacity: 0.3;
     }
   </style>
 </head>
 <body>
-  <h1>Prueba de componente &lt;suscripcion-card&gt;</h1>
+  <div class="main-container">
+    <h1>Planes de Suscripción</h1>
+    <p class="subtitle">Descubre nuestros componentes nativos con diseño moderno y funcionalidad avanzada</p>
 
-  <suscripcion-card
-    plan="Básico"
-    precio="5 USD/mes"
-    descripción="Acceso a contenidos básicos"
-  ></suscripcion-card>
+    <div class="subscription-container">
+      <subscription-card
+        plan="Básico"
+        visits="10000"
+        price="9"
+        description="Perfecto para proyectos pequeños y sitios web personales"
+        features='["Análisis básico", "Soporte por email", "Dashboard personalizado", "Exportación de datos"]'
+      ></subscription-card>
 
-  <suscripcion-card
-    plan="Premium"
-    precio="15 USD/mes"
-    descripción="Acceso a todo el contenido + soporte 24/7"
-  ></suscripcion-card>
+      <subscription-card
+        plan="Profesional"
+        visits="100000"
+        price="29"
+        tax-included
+        description="Ideal para empresas medianas y sitios web con tráfico alto"
+        features='["Todo lo del plan Básico", "Análisis avanzado", "Soporte prioritario", "API completa", "Integraciones", "Reportes personalizados"]'
+        highlighted
+      ></subscription-card>
 
-  <script>
-    document.querySelectorAll('suscripcion-card').forEach(el => {
-      el.addEventListener('suscribirse', e => {
-        console.log('[W-C] Plan:', e.detail.plan, 'Precio:', e.detail.precio);
+      <subscription-card
+        plan="Empresarial"
+        visits="0"
+        price="99"
+        tax-included
+        description="Solución completa para grandes empresas y aplicaciones críticas"
+        features='["Todo lo del plan Profesional", "Soporte 24/7", "Gerente de cuenta dedicado", "SLA garantizado", "Implementación personalizada", "Capacitación del equipo"]'
+      ></subscription-card>
+    </div>
+
+    <script>
+      document.querySelectorAll('subscription-card').forEach(el => {
+        el.addEventListener('subscribe', e => {
+          console.log('[W-C] Plan seleccionado:', e.detail.plan, 'Precio:', e.detail.price, 'Visitas:', e.detail.visits, 'IVA incluido:', e.detail.taxIncluded);
+          
+          // Mostrar notificación más elegante
+          const notification = document.createElement('div');
+          notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(72, 187, 120, 0.3);
+            font-weight: 600;
+            z-index: 1000;
+            animation: slideInRight 0.3s ease;
+          `;
+          notification.textContent = `¡Gracias por elegir el plan ${e.detail.plan}!`;
+          document.body.appendChild(notification);
+          
+          setTimeout(() => {
+            notification.style.animation = 'slideOutRight 0.3s ease';
+            setTimeout(() => notification.remove(), 300);
+          }, 3000);
+        });
       });
-    });
-  </script>
 
-  <hr>
+      // Agregar estilos de animación para notificaciones
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes slideInRight {
+          from { transform: translateX(100%); opacity: 0; }
+          to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideOutRight {
+          from { transform: translateX(0); opacity: 1; }
+          to { transform: translateX(100%); opacity: 0; }
+        }
+      `;
+      document.head.appendChild(style);
+    </script>
 
-  <h2>Prueba de componente &lt;acordion&gt;</h2>
+    <div class="section-divider"></div>
 
-  <acordion-list>
-    <acordion-item header="Sección 1">Contenido 1</acordion-item>
-    <acordion-item header="Sección 2">Contenido 2</acordion-item>
-  </acordion-list>
+    <h2>Componente Acordeón</h2>
+
+    <div class="accordion-container">
+      <acordion-list>
+        <acordion-item header="¿Qué ventajas ofrecen los Web Components nativos?">
+          Los Web Components nativos proporcionan encapsulación real del DOM y CSS, mejor rendimiento al no requerir bibliotecas externas, y compatibilidad nativa con todos los navegadores modernos. Son perfectos para crear componentes reutilizables y mantenibles.
+        </acordion-item>
+        <acordion-item header="¿Son compatibles con frameworks como React o Vue?">
+          Sí, los Web Components son interoperables por diseño. Puedes usarlos en cualquier framework o biblioteca, ya que se comportan como elementos HTML nativos. Esto los hace ideales para sistemas de diseño y bibliotecas de componentes compartidos.
+        </acordion-item>
+        <acordion-item header="¿Cuál es el nivel de soporte en navegadores?">
+          Los Web Components tienen excelente soporte en todos los navegadores modernos (Chrome, Firefox, Safari, Edge). Para navegadores más antiguos, existen polyfills disponibles que garantizan la compatibilidad hacia atrás.
+        </acordion-item>
+      </acordion-list>
+    </div>
+  </div>
 
 </body>
 </html>
