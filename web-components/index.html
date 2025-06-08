@@ -2,14 +2,18 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Demo Suscripción</title>
+  <title>Demo Suscripción y Acordeón</title>
+
+  <!-- Importación de los componentes -->
   <script src="suscripcion.js" type="module"></script>
+  <script src="acordion.js" type="module"></script>
+
+  <!-- Estilo global de prueba -->
   <style>
     button {
       background-color: #e91e63;
     }
   </style>
-
 </head>
 <body>
   <h1>Prueba de componente &lt;suscripcion-card&gt;</h1>
@@ -33,5 +37,15 @@
       });
     });
   </script>
+
+  <hr>
+
+  <h2>Prueba de componente &lt;acordion&gt;</h2>
+
+  <acordion-list>
+    <acordion-item header="Sección 1">Contenido 1</acordion-item>
+    <acordion-item header="Sección 2">Contenido 2</acordion-item>
+  </acordion-list>
+
 </body>
 </html>
