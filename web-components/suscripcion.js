@@ -228,68 +228,68 @@ templateSubscription.innerHTML = `
     /* Mobile-specific larger styles */
     @media (max-width: 1024px) {
       .card {
-        padding: 60px 50px;
-        min-height: 900px;
+        padding: 32px 24px;
+        min-height: 480px;
       }
       
       .plan-name {
-        font-size: 3.5rem;
-        margin-bottom: 32px;
-      }
-      
-      .visits {
-        font-size: 1.75rem;
-        margin-bottom: 48px;
-      }
-      
-      .pricing {
-        margin-bottom: 56px;
-      }
-      
-      .price {
-        font-size: 6rem;
+        font-size: 2rem;
         margin-bottom: 16px;
       }
       
+      .visits {
+        font-size: 1rem;
+        margin-bottom: 24px;
+      }
+      
+      .pricing {
+        margin-bottom: 32px;
+      }
+      
+      .price {
+        font-size: 3.5rem;
+        margin-bottom: 8px;
+      }
+      
       .tax-included {
-        font-size: 1.5rem;
+        font-size: 0.875rem;
       }
       
       .description {
-        font-size: 1.625rem;
-        margin-bottom: 56px;
-        line-height: 1.8;
+        font-size: 1rem;
+        margin-bottom: 32px;
+        line-height: 1.5;
       }
       
       .features {
-        margin: 0 0 56px 0;
+        margin: 0 0 32px 0;
       }
       
       .feature-item {
-        margin-bottom: 24px;
-        font-size: 1.5rem;
+        margin-bottom: 16px;
+        font-size: 0.875rem;
       }
       
       .check-icon {
-        width: 40px;
-        height: 40px;
-        margin-right: 24px;
+        width: 24px;
+        height: 24px;
+        margin-right: 16px;
       }
       
       .check-icon::after {
-        font-size: 1.25rem;
+        font-size: 0.875rem;
       }
       
       .cta-button {
-        padding: 36px 48px;
-        font-size: 1.75rem;
-        border-radius: 20px;
+        padding: 16px 24px;
+        font-size: 1rem;
+        border-radius: 8px;
       }
       
       .ribbon {
-        padding: 20px 48px;
-        font-size: 1.125rem;
-        border-radius: 0 0 20px 20px;
+        padding: 8px 24px;
+        font-size: 0.75rem;
+        border-radius: 0 0 8px 8px;
       }
     }
   </style>

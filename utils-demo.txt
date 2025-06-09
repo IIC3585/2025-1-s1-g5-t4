@@ -1,0 +1,8 @@
+<subscription-card
+    plan="Gratis"
+    visits="100"
+    price="0"
+    tax-included
+    description="Solución gratuita para pequeñas empresas y aplicaciones críticas"
+    features='["Soporte sólo de lunes a viernes", "Implementación no editable", "Capacitación no disponible"]'
+></subscription-card>
