@@ -9,6 +9,7 @@ templateSuscripcion.innerHTML = `
       font-family: Arial, sans-serif;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       margin: 16px;
+      height: auto;
     }
     .card { padding: 16px; box-sizing: border-box; }
     .titulo { font-size: 1.25rem; margin-bottom: 8px; color: #333; }

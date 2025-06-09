@@ -11,6 +11,10 @@ class AcordionItem extends HTMLElement {
           overflow: hidden;
           box-shadow: 0 2px 4px rgba(0,0,0,0.1);
           transition: box-shadow 0.3s ease;
+          width: 100%;
+          height: auto;
+          max-width: 300px;
+          
         }
 
         .item.open {
